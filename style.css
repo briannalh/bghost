@@ -1,0 +1,329 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: #F4F4F4;
+  color: #000000;
+
+  font-family: "Times New Roman", Times, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  gap: 10px;
+
+  padding: 20px;
+}
+
+/* NAV */
+
+.nav {
+  grid-column: 2;
+  grid-row: 1;
+
+  align-self: start;
+  justify-self: center;
+
+  display: flex;
+  gap: 64px;
+
+  padding-top: 60px;
+}
+
+.nav a {
+  color: #000;
+
+  text-align: center;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%;
+
+  text-decoration: none;
+}
+
+/* HERO */
+
+.hero {
+  grid-column: 2;
+  grid-row: 2;
+
+  align-self: center;
+  justify-self: center;
+}
+
+.hero-image-wrap {
+  position: relative;
+  width: 360px;
+}
+
+.hero-image {
+  width: 100%;
+  display: block;
+}
+
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  padding: 0;
+
+  color: #FFF;
+
+  text-align: center;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%;
+
+  white-space: nowrap;
+
+  mix-blend-mode: difference;
+}
+
+/* FOOTER */
+
+.footer {
+  grid-column: 2;
+  grid-row: 3;
+
+  align-self: end;
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  width: auto;
+
+  padding-bottom: 20px;
+}
+
+.pmtm {
+  width: 86px;
+  height: auto;
+
+  display: block;
+}
+
+/* RELEASE */
+
+.release-card {
+  grid-column: 3;
+  grid-row: 3;
+
+  align-self: end;
+  justify-self: end;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  gap: 4px;
+
+  padding-right: 65px;
+  padding-bottom: 64px;
+}
+
+.release-image {
+  width: 72px;
+  height: 72px;
+
+  object-fit: cover;
+}
+
+.release-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 0;
+}
+
+/* TYPE */
+
+.caption {
+  color: #000;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+
+  margin: 0;
+
+  text-align: left;
+}
+
+.caption-link {
+  color: #000;
+
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: 7.5%;
+  text-underline-offset: 12.5%;
+  text-underline-position: from-font;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 768px) {
+
+  body,
+  html {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .main {
+    width: 100vw;
+    height: auto;
+
+    overflow: visible;
+
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+
+    gap: 48px;
+
+    padding: 32px 24px 32px 24px;
+  }
+
+  .nav {
+    grid-column: 1;
+    grid-row: 1;
+
+    padding-top: 0;
+
+    gap: 28px;
+  }
+
+  .hero {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .hero-image-wrap {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  h1 {
+    font-size: 72px;
+  }
+
+  .release-card {
+    grid-column: 1;
+    grid-row: 3;
+
+    justify-self: center;
+    align-self: center;
+
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+
+  .footer {
+    grid-column: 1;
+    grid-row: 4;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    width: auto;
+
+    padding-bottom: 0;
+  }
+}
+
+/* FADE */
+
+.fade-in {
+  animation: fadeIn ease 2s;
+  -webkit-animation: fadeIn ease 2s;
+  -moz-animation: fadeIn ease 2s;
+  -o-animation: fadeIn ease 2s;
+  -ms-animation: fadeIn ease 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
