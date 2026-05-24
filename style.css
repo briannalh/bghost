@@ -3,25 +3,22 @@ html {
   margin: 0;
   padding: 0;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 
   background: #F4F4F4;
-  color: #000;
+  color: #000000;
 
   font-family: "Times New Roman", Times, serif;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 🔥 FORCE ALL LINKS BLACK */
 a,
 a:visited,
 a:hover,
@@ -31,8 +28,10 @@ a:active {
 }
 
 .main {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+
+  overflow: hidden;
 
   display: grid;
 
@@ -40,6 +39,7 @@ a:active {
   grid-template-rows: 1fr 1fr 1fr;
 
   gap: 10px;
+
   padding: 20px;
 }
 
@@ -49,13 +49,13 @@ a:active {
   grid-column: 2;
   grid-row: 1;
 
-  width: 400px;
+  align-self: start;
+  justify-self: center;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
-  justify-self: center;
-  align-self: start;
+  width: 400px;
 
   padding-top: 60px;
 }
@@ -63,7 +63,6 @@ a:active {
 .nav a {
   text-align: center;
   font-size: 14px;
-  line-height: 110%;
 }
 
 /* HERO */
@@ -72,23 +71,20 @@ a:active {
   grid-column: 2;
   grid-row: 2;
 
-  justify-self: center;
   align-self: center;
+  justify-self: center;
 }
 
 .hero-image-wrap {
   position: relative;
   width: 360px;
-
-  isolation: isolate;
+  max-width: 100%;
 }
 
 .hero-image {
   width: 100%;
   display: block;
 }
-
-/* TITLE */
 
 h1 {
   position: absolute;
@@ -108,26 +104,17 @@ h1 {
   white-space: nowrap;
 
   mix-blend-mode: difference;
-
-  pointer-events: none;
 }
-
-/* INITIALS */
 
 .hero-initials {
   position: absolute;
   bottom: 10px;
-  right: 5px;
-
-  height: 20px;
-  width: auto;
+  right: 10px;
 
   max-height: 20px;
-  max-width: 20px;
+  width: auto;
 
   mix-blend-mode: difference;
-
-  pointer-events: none;
 }
 
 /* FOOTER */
@@ -136,8 +123,8 @@ h1 {
   grid-column: 2;
   grid-row: 3;
 
-  justify-self: center;
   align-self: end;
+  justify-self: center;
 
   display: flex;
   flex-direction: column;
@@ -161,7 +148,7 @@ h1 {
   justify-self: end;
   align-self: end;
 
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: flex-end;
 
@@ -182,6 +169,7 @@ h1 {
 .release-copy {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 /* TYPE */
@@ -192,12 +180,12 @@ h1 {
 }
 
 .caption-link {
-  text-decoration: underline dotted;
+  text-decoration: underline;
 }
 
 /* MOBILE */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
 
   body,
   html {
@@ -206,15 +194,23 @@ h1 {
   }
 
   .main {
+    width: 100%;
+    height: auto;
+
+    overflow: visible;
+
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
 
     gap: 48px;
+
     padding: 32px 24px;
   }
 
   .nav {
     grid-column: 1;
+    grid-row: 1;
+
     width: 100%;
     max-width: 400px;
 
@@ -223,21 +219,30 @@ h1 {
 
   .hero {
     grid-column: 1;
+    grid-row: 2;
   }
 
   .hero-image-wrap {
     width: 100%;
-    max-width: 375px;
+    max-width: 360px;
   }
 
   .release-card {
     grid-column: 1;
-    justify-self: center;
+    grid-row: 3;
+
+    justify-self: end;
+    align-self: center;
+
+    align-items: flex-end;
+
     padding: 0;
   }
 
   .footer {
     grid-column: 1;
+    grid-row: 4;
+
     padding-bottom: 0;
   }
 }
@@ -245,12 +250,12 @@ h1 {
 /* FADE */
 
 .fade-in {
-  animation: fadeIn 2s ease;
+  animation: fadeIn ease 2s;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* SPIN */
