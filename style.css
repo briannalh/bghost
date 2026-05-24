@@ -160,6 +160,10 @@ h1 {
   object-fit: cover;
 
   display: block;
+
+  /* 🔥 rotation added */
+  animation: spin 16s linear infinite;
+  transform-origin: center;
 }
 
 .release-copy {
@@ -333,5 +337,16 @@ h1 {
 
   100% {
     opacity: 1;
+  }
+}
+
+/* 🔥 spin animation */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
