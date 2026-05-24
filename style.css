@@ -9,20 +9,30 @@ html {
   overflow: hidden;
 
   background: #F4F4F4;
-  color: #000000;
+  color: #000;
 
   font-family: "Times New Roman", Times, serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* 🔥 FORCE ALL LINKS BLACK */
+a,
+a:visited,
+a:hover,
+a:active {
+  color: #000;
+  text-decoration: none;
+}
+
 .main {
   width: 100vw;
   height: 100vh;
-
-  overflow: hidden;
 
   display: grid;
 
@@ -30,7 +40,6 @@ html {
   grid-template-rows: 1fr 1fr 1fr;
 
   gap: 10px;
-
   padding: 20px;
 }
 
@@ -40,27 +49,21 @@ html {
   grid-column: 2;
   grid-row: 1;
 
-  align-self: start;
-  justify-self: center;
+  width: 400px;
 
-  display: flex;
-  gap: 64px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  justify-self: center;
+  align-self: start;
 
   padding-top: 60px;
 }
 
 .nav a {
-  color: #000;
-
   text-align: center;
-
-  font-family: "Times New Roman", Times, serif;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 110%;
-
-  text-decoration: none;
 }
 
 /* HERO */
@@ -69,19 +72,23 @@ html {
   grid-column: 2;
   grid-row: 2;
 
-  align-self: center;
   justify-self: center;
+  align-self: center;
 }
 
 .hero-image-wrap {
   position: relative;
   width: 360px;
+
+  isolation: isolate;
 }
 
 .hero-image {
   width: 100%;
   display: block;
 }
+
+/* TITLE */
 
 h1 {
   position: absolute;
@@ -91,21 +98,36 @@ h1 {
   transform: translate(-50%, -50%);
 
   margin: 0;
-  padding: 0;
 
   color: #FFF;
 
-  text-align: center;
-
-  font-family: "Times New Roman", Times, serif;
   font-size: 120px;
-  font-style: normal;
   font-weight: 400;
   line-height: 110%;
 
   white-space: nowrap;
 
   mix-blend-mode: difference;
+
+  pointer-events: none;
+}
+
+/* INITIALS */
+
+.hero-initials {
+  position: absolute;
+  bottom: 10px;
+  right: 5px;
+
+  height: 20px;
+  width: auto;
+
+  max-height: 20px;
+  max-width: 20px;
+
+  mix-blend-mode: difference;
+
+  pointer-events: none;
 }
 
 /* FOOTER */
@@ -114,8 +136,8 @@ h1 {
   grid-column: 2;
   grid-row: 3;
 
-  align-self: end;
   justify-self: center;
+  align-self: end;
 
   display: flex;
   flex-direction: column;
@@ -123,16 +145,11 @@ h1 {
 
   gap: 10px;
 
-  width: auto;
-
   padding-bottom: 20px;
 }
 
 .pmtm {
   width: 86px;
-  height: auto;
-
-  display: block;
 }
 
 /* RELEASE */
@@ -144,7 +161,7 @@ h1 {
   justify-self: end;
   align-self: end;
 
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
 
@@ -159,51 +176,28 @@ h1 {
 
   object-fit: cover;
 
-  display: block;
-
-  /* 🔥 rotation added */
   animation: spin 16s linear infinite;
-  transform-origin: center;
 }
 
 .release-copy {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-
-  gap: 0;
 }
 
 /* TYPE */
 
 .caption {
-  color: #000;
-
-  font-family: "Times New Roman", Times, serif;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-
   margin: 0;
-
-  text-align: left;
 }
 
 .caption-link {
-  color: #000;
-
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-skip-ink: auto;
-  text-decoration-thickness: 7.5%;
-  text-underline-offset: 12.5%;
-  text-underline-position: from-font;
+  text-decoration: underline dotted;
 }
 
 /* MOBILE */
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
 
   body,
   html {
@@ -212,66 +206,38 @@ h1 {
   }
 
   .main {
-    width: 100vw;
-    height: auto;
-
-    overflow: visible;
-
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
 
     gap: 48px;
-
-    padding: 32px 24px 32px 24px;
+    padding: 32px 24px;
   }
 
   .nav {
     grid-column: 1;
-    grid-row: 1;
+    width: 100%;
+    max-width: 400px;
 
     padding-top: 0;
-
-    gap: 28px;
   }
 
   .hero {
     grid-column: 1;
-    grid-row: 2;
   }
 
   .hero-image-wrap {
     width: 100%;
     max-width: 375px;
-  } 
+  }
 
   .release-card {
     grid-column: 1;
-    grid-row: 3;
-
     justify-self: center;
-    align-self: center;
-
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    gap: 23px;
-
     padding: 0;
   }
 
   .footer {
     grid-column: 1;
-    grid-row: 4;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 10px;
-
-    width: auto;
-
     padding-bottom: 0;
   }
 }
@@ -279,70 +245,17 @@ h1 {
 /* FADE */
 
 .fade-in {
-  animation: fadeIn ease 2s;
-  -webkit-animation: fadeIn ease 2s;
-  -moz-animation: fadeIn ease 2s;
-  -o-animation: fadeIn ease 2s;
-  -ms-animation: fadeIn ease 2s;
+  animation: fadeIn 2s ease;
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@-moz-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-/* 🔥 spin animation */
+/* SPIN */
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
