@@ -242,11 +242,7 @@ h1 {
   .hero-image-wrap {
     width: 100%;
     max-width: 375px;
-  }
-
-  h1 {
-    font-size: 120px;
-  }
+  } 
 
   .release-card {
     grid-column: 1;
