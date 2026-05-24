@@ -120,6 +120,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 10px;
 
   width: auto;
@@ -140,17 +141,16 @@ h1 {
   grid-column: 3;
   grid-row: 3;
 
-  align-self: end;
   justify-self: end;
+  align-self: end;
 
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
+  flex-direction: column;
   align-items: flex-end;
 
-  gap: 4px;
+  gap: 23px;
 
-  padding-right: 65px;
-  padding-bottom: 64px;
+  padding: 0 65px 65px 0;
 }
 
 .release-image {
@@ -158,6 +158,8 @@ h1 {
   height: 72px;
 
   object-fit: cover;
+
+  display: block;
 }
 
 .release-copy {
@@ -239,7 +241,7 @@ h1 {
   }
 
   h1 {
-    font-size: 72px;
+    font-size: 110px;
   }
 
   .release-card {
@@ -249,8 +251,13 @@ h1 {
     justify-self: center;
     align-self: center;
 
-    padding-right: 0;
-    padding-bottom: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    gap: 23px;
+
+    padding: 0;
   }
 
   .footer {
@@ -260,6 +267,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 10px;
 
     width: auto;
