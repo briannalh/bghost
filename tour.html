@@ -54,13 +54,13 @@
       });
     }
 
-    // Drop dates before today (inclusive of today)
+    // Show today's dates (with a 24h buffer) and everything in the future.
+    // A date stays listed until 24 hours after its day begins.
     function isUpcoming(iso) {
       if (!iso) return true;
-      const d = new Date(iso + "T00:00:00");
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return d >= today;
+      const eventTime = new Date(iso + "T00:00:00").getTime();
+      const cutoff = Date.now() - 24 * 60 * 60 * 1000; // now minus 24h
+      return eventTime >= cutoff;
     }
 
     function render(dates) {

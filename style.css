@@ -56,7 +56,9 @@ a:active {
 .tour-text {
   margin: 0;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 110%;
 }
 
 .tour-text a {
@@ -74,7 +76,9 @@ a:active {
   grid-template-columns: minmax(0, 2fr) auto auto;
   align-items: baseline;
 
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 110%;
 }
 
 .tour-event {
