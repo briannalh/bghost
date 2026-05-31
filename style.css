@@ -68,7 +68,7 @@ a:active {
 .tour-dates {
   display: grid;
   width: 100%;
-  max-width: 375px;
+  max-width: 400px;
 
   row-gap: 16px;
   column-gap: 16px;
