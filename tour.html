@@ -16,8 +16,110 @@
   </a>
 
   <main class="tour">
-    <p class="tour-text">No tour dates currently available. <a href="/">Return home</a>.</p>
+    <div id="tour-content"></div>
   </main>
+
+  <script>
+    // --- Sanity ---
+    const SANITY_PROJECT_ID = "tabkldbj";
+    const SANITY_DATASET = "production";
+    const SANITY_API_VERSION = "2023-10-01";
+
+    // Fetch upcoming tour dates, oldest first.
+    const GROQ =
+      '*[_type == "tourDate"] | order(date asc){event, date, linkLabel, linkUrl}';
+
+    function sanityUrl() {
+      return (
+        "https://" +
+        SANITY_PROJECT_ID +
+        ".apicdn.sanity.io/v" +
+        SANITY_API_VERSION +
+        "/data/query/" +
+        SANITY_DATASET +
+        "?query=" +
+        encodeURIComponent(GROQ)
+      );
+    }
+
+    // "2026-06-05" -> "Jun 05, 2026" (parsed as local to avoid TZ shift)
+    function formatDate(iso) {
+      if (!iso) return "";
+      const d = new Date(iso + "T00:00:00");
+      if (isNaN(d)) return iso;
+      return d.toLocaleDateString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric"
+      });
+    }
+
+    // Drop dates before today (inclusive of today)
+    function isUpcoming(iso) {
+      if (!iso) return true;
+      const d = new Date(iso + "T00:00:00");
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return d >= today;
+    }
+
+    function render(dates) {
+      const container = document.getElementById("tour-content");
+
+      if (!dates || dates.length === 0) {
+        container.innerHTML =
+          '<p class="tour-text">No tour dates currently available. ' +
+          '<a href="/">Return home</a>.</p>';
+        return;
+      }
+
+      const grid = document.createElement("div");
+      grid.className = "tour-dates";
+
+      dates.forEach(function (d) {
+        const event = document.createElement("span");
+        event.className = "tour-event";
+        event.textContent = d.event;
+
+        const date = document.createElement("span");
+        date.className = "tour-date";
+        date.textContent = formatDate(d.date);
+
+        let link;
+        if (d.linkUrl) {
+          link = document.createElement("a");
+          link.className = "tour-link";
+          link.href = d.linkUrl;
+          link.target = "_blank";
+          link.rel = "noopener";
+        } else {
+          link = document.createElement("span");
+          link.className = "tour-link";
+        }
+        link.textContent = d.linkLabel;
+
+        grid.append(event, date, link);
+      });
+
+      container.replaceChildren(grid);
+    }
+
+    fetch(sanityUrl())
+      .then(function (res) {
+        if (!res.ok) throw new Error("Sanity request failed: " + res.status);
+        return res.json();
+      })
+      .then(function (json) {
+        const dates = (json.result || []).filter(function (d) {
+          return isUpcoming(d.date);
+        });
+        render(dates);
+      })
+      .catch(function (err) {
+        console.error(err);
+        render([]); // show the "no dates" fallback on error
+      });
+  </script>
 
 </body>
 </html>
