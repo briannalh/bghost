@@ -67,8 +67,8 @@ a:active {
 
 .tour-dates {
   display: grid;
-  width: 375px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 375px;
 
   row-gap: 16px;
   column-gap: 16px;
@@ -123,7 +123,8 @@ a:active {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 
-  width: 375px;
+  width: 100%;
+  max-width: 375px;
 
   padding-top: 60px;
 }
