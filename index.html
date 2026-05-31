@@ -72,5 +72,88 @@
 
   </main>
 
+  <script>
+    // Pull editable content from Sanity. The HTML above holds the defaults,
+    // so the page renders fine even if the fetch fails or no doc is published.
+    (function () {
+      const PROJECT_ID = "tabkldbj";
+      const DATASET = "production";
+      const API_VERSION = "2023-10-01";
+
+      const groq = encodeURIComponent(
+        '*[_id == "homepage"][0]{' +
+          "heroTitle, socialLinks, footer, release," +
+          '"releaseImageUrl": release.image.asset->url,' +
+          '"heroVideoUrl": heroVideo.asset->url,' +
+          '"heroImageUrl": heroImage.asset->url' +
+          "}"
+      );
+
+      const url =
+        "https://" + PROJECT_ID + ".apicdn.sanity.io/v" + API_VERSION +
+        "/data/query/" + DATASET + "?query=" + groq;
+
+      const setText = (el, val) => { if (el && val) el.textContent = val; };
+      const setHref = (el, val) => { if (el && val) el.href = val; };
+
+      fetch(url)
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then(({ result: d }) => {
+          if (!d) return;
+
+          setText(document.querySelector(".hero h1"), d.heroTitle);
+
+          // Swap hero media: video takes priority, then image
+          const heroMedia = document.querySelector(".hero-image");
+          if (heroMedia) {
+            if (d.heroVideoUrl) {
+              if (heroMedia.tagName === "VIDEO") {
+                heroMedia.src = d.heroVideoUrl;
+              } else {
+                const v = document.createElement("video");
+                v.className = "hero-image";
+                v.src = d.heroVideoUrl;
+                v.autoplay = v.muted = v.loop = v.playsInline = true;
+                v.setAttribute("playsinline", "");
+                heroMedia.replaceWith(v);
+              }
+            } else if (d.heroImageUrl) {
+              const img = document.createElement("img");
+              img.className = "hero-image";
+              img.src = d.heroImageUrl;
+              img.alt = d.heroTitle || "B Ghost";
+              heroMedia.replaceWith(img);
+            }
+          }
+
+          const nav = document.querySelectorAll(".nav a");
+          if (d.socialLinks) {
+            setHref(nav[0], d.socialLinks.instagramUrl);
+            setHref(nav[1], d.socialLinks.spotifyUrl);
+            setHref(nav[2], d.socialLinks.youtubeUrl);
+          }
+
+          if (d.footer) {
+            setText(document.querySelector(".footer .caption"), d.footer.managementLabel);
+            setHref(document.querySelector(".footer a[href^='http']"), d.footer.managementUrl);
+            const contact = document.querySelector(".footer a[href^='mailto']");
+            if (contact && d.footer.contactEmail) contact.href = "mailto:" + d.footer.contactEmail;
+          }
+
+          if (d.release) {
+            setText(document.querySelector(".release-copy .caption"), d.release.availableLabel);
+            const relLink = document.querySelector(".release-copy a");
+            if (relLink && d.release.title) relLink.textContent = "“" + d.release.title + "”";
+            setHref(relLink, d.release.url);
+          }
+          if (d.releaseImageUrl) {
+            const relImg = document.querySelector(".release-image");
+            if (relImg) relImg.src = d.releaseImageUrl;
+          }
+        })
+        .catch((err) => console.error("Homepage CMS fetch failed:", err));
+    })();
+  </script>
+
 </body>
 </html>

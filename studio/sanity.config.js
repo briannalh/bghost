@@ -9,7 +9,22 @@ export default defineConfig({
   projectId: 'tabkldbj',
   dataset: 'production',
 
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            S.listItem()
+              .title('Home Page')
+              .id('homepage')
+              .child(
+                S.document().schemaType('homepage').documentId('homepage')
+              ),
+            S.documentTypeListItem('tourDate').title('Tour Dates'),
+          ]),
+    }),
+  ],
 
   schema: {
     types: schemaTypes,

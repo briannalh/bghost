@@ -1,0 +1,318 @@
+[
+  {
+    "fields": [
+      {
+        "initialValue": "B Ghost",
+        "description": "Large text over the hero video",
+        "name": "heroTitle",
+        "type": "string",
+        "title": "Hero title"
+      },
+      {
+        "options": {
+          "accept": "video/*"
+        },
+        "description": "Optional. Overrides the default hero video. Autoplays muted & looped.",
+        "name": "heroVideo",
+        "type": "file",
+        "title": "Hero video"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional. Shown instead of a video if set and no hero video is uploaded.",
+        "name": "heroImage",
+        "type": "image",
+        "title": "Hero image (fallback)"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "fields": [
+          {
+            "initialValue": "https://www.instagram.com/bghostinggg/",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "instagramUrl",
+            "type": "url",
+            "title": "Instagram URL"
+          },
+          {
+            "initialValue": "https://open.spotify.com/artist/0FOueJTXsoIjUxvJPQTPKQ",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "spotifyUrl",
+            "type": "url",
+            "title": "Spotify URL"
+          },
+          {
+            "initialValue": "https://www.youtube.com/@BGhost",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "youtubeUrl",
+            "type": "url",
+            "title": "YouTube URL"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "object",
+        "title": "Navigation links"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "fields": [
+          {
+            "initialValue": "Management",
+            "name": "managementLabel",
+            "type": "string",
+            "title": "Management label"
+          },
+          {
+            "initialValue": "https://www.portminority.com/",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "managementUrl",
+            "type": "url",
+            "title": "Management URL"
+          },
+          {
+            "initialValue": "talent@portminority.com",
+            "name": "contactEmail",
+            "type": "string",
+            "title": "Contact email"
+          }
+        ],
+        "name": "footer",
+        "type": "object"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "fields": [
+          {
+            "initialValue": "Now available:",
+            "name": "availableLabel",
+            "type": "string",
+            "title": "Label"
+          },
+          {
+            "initialValue": "Demos I Shouldn't Release",
+            "name": "title",
+            "type": "string",
+            "title": "Release title"
+          },
+          {
+            "initialValue": "https://open.spotify.com/album/4x68vPAEzHIvwDsnR9qyl1",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "Release URL"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "description": "Optional. Overrides the default ep.png cover.",
+            "name": "image",
+            "type": "image",
+            "title": "Release image"
+          }
+        ],
+        "name": "release",
+        "type": "object",
+        "title": "Release card"
+      }
+    ],
+    "name": "homepage",
+    "type": "document",
+    "title": "Home Page"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "e.g. \"NÃOBODY - Guimarães\"",
+        "name": "event",
+        "type": "string"
+      },
+      {
+        "options": {
+          "dateFormat": "MMM DD, YYYY"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "date",
+        "type": "date"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Text shown on the right, e.g. \"Buy tickets\" or \"Free\"",
+        "name": "linkLabel",
+        "type": "string",
+        "title": "Link label"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optional. Leave empty for non-clickable labels like \"Free\".",
+        "name": "linkUrl",
+        "type": "url",
+        "title": "Link URL"
+      }
+    ],
+    "name": "tourDate",
+    "type": "document"
+  }
+]
