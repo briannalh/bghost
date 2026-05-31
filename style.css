@@ -27,6 +27,42 @@ a:active {
   text-decoration: none;
 }
 
+.site-logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+
+  display: block;
+}
+
+.site-logo img {
+  display: block;
+  width: auto;
+  height: 36px;
+}
+
+.tour {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.tour-text {
+  margin: 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.tour-text a {
+  text-decoration: underline;
+}
+
 .main {
   width: 100%;
   height: 100vh;
@@ -53,9 +89,9 @@ a:active {
   justify-self: center;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 
-  width: 400px;
+  width: 375px;
 
   padding-top: 60px;
 }
