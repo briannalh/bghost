@@ -30,6 +30,15 @@ export default {
     },
 
     {
+      name: 'featureVideo',
+      title: 'Feature video',
+      description:
+        'Full-bleed video below the hero. Autoplays muted & looped. Shows the default hero video until one is uploaded.',
+      type: 'file',
+      options: { accept: 'video/*' },
+    },
+
+    {
       name: 'socialLinks',
       title: 'Navigation links',
       type: 'object',

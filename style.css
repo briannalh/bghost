@@ -4,15 +4,18 @@ html {
   padding: 0;
 
   width: 100%;
-  height: 100%;
-
-  overflow-x: hidden;
-  overflow-y: hidden;
 
   background: #F4F4F4;
   color: #000000;
 
   font-family: "Times New Roman", Times, serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: clip;
 }
 
 * {
@@ -40,6 +43,11 @@ a:active {
   display: block;
   width: auto;
   height: 36px;
+}
+
+/* White marks with a difference blend stay legible over both the light page and video */
+.site-logo-overlay {
+  mix-blend-mode: difference;
 }
 
 .tour {
@@ -95,63 +103,102 @@ a:active {
   text-decoration: underline;
 }
 
-.main {
-  width: 100%;
-  height: 100vh;
-
-  overflow: hidden;
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-
-  gap: 10px;
-
-  padding: 20px;
-}
-
 /* NAV */
 
 .nav {
-  grid-column: 2;
-  grid-row: 1;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  z-index: 100;
 
-  align-self: start;
-  justify-self: center;
+  transform: translateX(-50%);
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 
-  width: 100%;
-  max-width: 375px;
+  width: 375px;
+  max-width: calc(100% - 40px);
 
-  padding-top: 60px;
+  mix-blend-mode: difference;
 }
 
 .nav a {
+  color: #FFF;
   text-align: center;
   font-size: 14px;
+  line-height: 1.1;
+  text-box: trim-both cap alphabetic;
+}
+
+/* FOOTER */
+
+.footer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  z-index: 100;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 14px;
+
+  color: #FFF;
+
+  mix-blend-mode: difference;
+}
+
+.footer a {
+  display: block;
+  color: #FFF;
+}
+
+.footer .caption {
+  font-size: 14px;
+  line-height: 1.1;
+  text-box: trim-both cap alphabetic;
+}
+
+.pmtm {
+  display: block;
+  width: 100px;
+  height: 18px;
+
+  filter: invert(1);
 }
 
 /* HERO */
 
 .hero {
-  grid-column: 2;
-  grid-row: 2;
+  position: relative;
 
-  align-self: center;
-  justify-self: center;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Leaves room above and below for the fixed nav and footer */
 .hero-image-wrap {
   position: relative;
-  width: 360px;
+  container-type: inline-size;
+
+  height: min(468.75px, calc(max(100vh, 560px) - 232px));
+  height: min(468.75px, calc(max(100svh, 560px) - 232px));
   max-width: 100%;
+  aspect-ratio: 750 / 938;
 }
 
 .hero-image {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -166,7 +213,7 @@ h1 {
 
   color: #FFF;
 
-  font-size: 120px;
+  font-size: 32cqw;
   font-weight: 400;
   line-height: 110%;
 
@@ -186,49 +233,23 @@ h1 {
   mix-blend-mode: difference;
 }
 
-/* FOOTER */
-
-.footer {
-  grid-column: 2;
-  grid-row: 3;
-
-  align-self: end;
-  justify-self: center;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  gap: 10px;
-
-  padding-bottom: 20px;
-}
-
-.pmtm {
-  width: 86px;
-}
-
 /* RELEASE */
 
 .release-card {
-  grid-column: 3;
-  grid-row: 3;
-
-  justify-self: end;
-  align-self: end;
+  position: absolute;
+  right: 85px;
+  bottom: 84px;
 
   display: inline-flex;
   flex-direction: column;
   align-items: flex-end;
 
   gap: 23px;
-
-  padding: 0 65px 65px 0;
 }
 
 .release-image {
-  width: 72px;
-  height: 72px;
+  width: 70px;
+  height: 70px;
 
   object-fit: cover;
 
@@ -236,9 +257,75 @@ h1 {
 }
 
 .release-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: block;
+
+  line-height: 1.2;
+  text-box: trim-both cap alphabetic;
+}
+
+.release-copy .caption {
+  display: block;
+  line-height: 1.2;
+}
+
+/* FEATURE */
+
+.feature {
+  height: 100vh;
+  height: 100svh;
+}
+
+.feature-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sound-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+
+  margin: 0;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 0;
+
+  background: #FFF;
+  color: #000;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.1;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sound-toggle.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sound-toggle.is-on {
+  background: #000;
+  color: #FFF;
+}
+
+.sound-toggle-label {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
+/* Keeps the line box while the label is being retyped */
+.sound-toggle-label::after {
+  content: "\200B";
 }
 
 /* TYPE */
@@ -249,71 +336,68 @@ h1 {
 }
 
 .caption-link {
-  text-decoration: underline;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 0.075em;
 }
 
 /* MOBILE */
 
 @media screen and (max-width: 768px) {
 
-  body,
-  html {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .main {
-    width: 100%;
-    height: auto;
-
-    overflow: visible;
-
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-
-    gap: 48px;
-
-    /* Start content 100px from the top so the fixed logo doesn't overlap */
-    padding: 100px 24px 32px;
+  /* Logo moves to the bottom-left so the nav can center across the full width */
+  .site-logo-overlay {
+    top: auto;
+    bottom: 20px;
   }
 
   .nav {
-    grid-column: 1;
-    grid-row: 1;
+    left: 20px;
+    right: 20px;
 
-    width: 100%;
-    max-width: 400px;
+    transform: none;
 
-    padding-top: 0;
+    display: flex;
+    justify-content: space-between;
+
+    width: auto;
+    max-width: 375px;
+    margin-inline: auto;
   }
 
+  .nav a {
+    white-space: nowrap;
+  }
+
+  /* The hero fits one screen: the video shrinks on short phones so the release card stays above the fold */
   .hero {
-    grid-column: 1;
-    grid-row: 2;
+    min-height: 0;
+
+    flex-direction: column;
+    align-items: center;
+
+    gap: 32px;
+
+    padding: 77px 24px 32px;
   }
 
   .hero-image-wrap {
-    width: 100%;
-    max-width: 360px;
+    margin-block: auto;
+
+    width: auto;
+    max-width: 100%;
+    height: min(calc((100vw - 48px) * 938 / 750), calc(100vh - 256px));
+    height: min(calc((100vw - 48px) * 938 / 750), calc(100svh - 256px));
+    max-height: 468.75px;
   }
 
   .release-card {
-    grid-column: 1;
-    grid-row: 3;
-
-    justify-self: end;
-    align-self: center;
-
-    align-items: flex-end;
-
-    padding: 0;
+    position: static;
+    align-self: flex-end;
   }
 
-  .footer {
-    grid-column: 1;
-    grid-row: 4;
-
-    padding-bottom: 0;
+  .sound-toggle {
+    right: 8px;
+    bottom: 8px;
   }
 }
 

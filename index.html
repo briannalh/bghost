@@ -14,9 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bghosting.co">
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="/assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="256x256" href="/assets/favicon-256x256.png">
 
   <link rel="stylesheet" href="style.css">
@@ -34,19 +32,33 @@
 
 <body class="fade-in">
 
-  <a class="site-logo" href="/">
-    <img src="assets/initials-black.svg" alt="B Ghost — Home">
+  <a class="site-logo site-logo-overlay" href="/">
+    <img src="assets/initials.svg" alt="B Ghost — Home">
   </a>
 
-  <main class="main">
+  <nav class="nav">
+    <a href="https://www.instagram.com/bghostinggg/" target="_blank">Instagram</a>
+    <a href="https://open.spotify.com/artist/0FOueJTXsoIjUxvJPQTPKQ" target="_blank">Spotify</a>
+    <a href="https://www.youtube.com/@BGhost" target="_blank">Youtube</a>
+    <a href="/tour">Tour</a>
+    <a href="/epk">EPK</a>
+  </nav>
 
-    <nav class="nav">
-      <a href="https://www.instagram.com/bghostinggg/" target="_blank">Instagram</a>
-      <a href="https://open.spotify.com/artist/0FOueJTXsoIjUxvJPQTPKQ" target="_blank">Spotify</a>
-      <a href="https://www.youtube.com/@BGhost" target="_blank">Youtube</a>
-      <a href="/tour">Tour</a>
-      <a href="/epk">EPK</a>
-    </nav>
+  <footer class="footer">
+    <p class="caption">Management</p>
+
+    <a href="https://www.portminority.com/" target="_blank">
+      <img class="pmtm" src="assets/PMTM.svg" alt="PMTM">
+    </a>
+
+    <a class="caption caption-link" href="mailto:talent@portminority.com">Contact</a>
+  </footer>
+
+  <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Toggle sound" tabindex="-1">
+    <span class="sound-toggle-label">Sound on</span>
+  </button>
+
+  <main class="main">
 
     <section class="hero">
       <div class="hero-image-wrap">
@@ -54,31 +66,25 @@
         <h1>B Ghost</h1>
         <img class="hero-initials" src="assets/initials.svg" alt="">
       </div>
+
+      <aside class="release-card">
+        <img class="release-image" src="assets/ep.png" alt="Demos I Shouldn't Release">
+
+        <div class="release-copy">
+          <p class="caption">Now available:</p>
+
+          <a class="caption caption-link"
+            href="https://open.spotify.com/album/7G2G8etqMa6N7ey4X9PJRF?si=DYiC1CCuRk2jnTeGhpE8uQ"
+            target="_blank">
+            “Mirror”
+          </a>
+        </div>
+      </aside>
     </section>
 
-    <footer class="footer">
-      <p class="caption">Management</p>
-
-      <a href="https://www.portminority.com/" target="_blank">
-        <img class="pmtm" src="assets/PMTM.svg" alt="PMTM">
-      </a>
-
-      <a class="caption caption-link" href="mailto:talent@portminority.com">Contact</a>
-    </footer>
-
-    <aside class="release-card">
-      <img class="release-image" src="assets/ep.png" alt="Demos I Shouldn't Release">
-
-      <div class="release-copy">
-        <p class="caption">Now available:</p>
-
-        <a class="caption caption-link"
-          href="https://open.spotify.com/album/7G2G8etqMa6N7ey4X9PJRF?si=DYiC1CCuRk2jnTeGhpE8uQ"
-          target="_blank">
-          “Mirror”
-        </a>
-      </div>
-    </aside>
+    <section class="feature">
+      <video class="feature-video" src="assets/B Ghost.mov" autoplay muted loop playsinline></video>
+    </section>
 
   </main>
 
@@ -92,10 +98,11 @@
 
       const groq = encodeURIComponent(
         '*[_id == "homepage"][0]{' +
-          "heroTitle, socialLinks, footer, release," +
+          "heroTitle, footer, release," +
           '"releaseImageUrl": release.image.asset->url,' +
           '"heroVideoUrl": heroVideo.asset->url,' +
-          '"heroImageUrl": heroImage.asset->url' +
+          '"heroImageUrl": heroImage.asset->url,' +
+          '"featureVideoUrl": featureVideo.asset->url' +
           "}"
       );
 
@@ -136,13 +143,6 @@
             }
           }
 
-          const nav = document.querySelectorAll(".nav a");
-          if (d.socialLinks) {
-            setHref(nav[0], d.socialLinks.instagramUrl);
-            setHref(nav[1], d.socialLinks.spotifyUrl);
-            setHref(nav[2], d.socialLinks.youtubeUrl);
-          }
-
           if (d.footer) {
             setText(document.querySelector(".footer .caption"), d.footer.managementLabel);
             setHref(document.querySelector(".footer a[href^='http']"), d.footer.managementUrl);
@@ -160,10 +160,61 @@
             const relImg = document.querySelector(".release-image");
             if (relImg) relImg.src = d.releaseImageUrl;
           }
+
+          if (d.featureVideoUrl) {
+            document.querySelector(".feature-video").src = d.featureVideoUrl;
+          }
         })
         .catch((err) => console.error("Homepage CMS fetch failed:", err));
     })();
+
+    (function () {
+      const feature = document.querySelector(".feature");
+      const video = document.querySelector(".feature-video");
+      const button = document.querySelector(".sound-toggle");
+      const label = button.querySelector(".sound-toggle-label");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let typing;
+
+      function typeLabel(text) {
+        clearInterval(typing);
+        if (reduceMotion) {
+          label.textContent = text;
+          return;
+        }
+        let i = 0;
+        label.textContent = "";
+        typing = setInterval(() => {
+          label.textContent = text.slice(0, ++i);
+          if (i >= text.length) clearInterval(typing);
+        }, 60);
+      }
+
+      function setSound(on, animate) {
+        video.muted = !on;
+        button.classList.toggle("is-on", on);
+        button.setAttribute("aria-pressed", String(on));
+        const text = on ? "Sound off" : "Sound on";
+        if (animate) typeLabel(text);
+        else { clearInterval(typing); label.textContent = text; }
+      }
+
+      button.addEventListener("click", () => {
+        setSound(video.muted, true);
+        if (!video.muted) video.play();
+      });
+
+      // Only offer sound while the feature video is on screen; leaving it mutes again
+      new IntersectionObserver(([entry]) => {
+        const visible = entry.isIntersecting;
+        button.classList.toggle("is-visible", visible);
+        button.tabIndex = visible ? 0 : -1;
+        if (!visible && !video.muted) setSound(false, false);
+      }, { threshold: 0.5 }).observe(feature);
+    })();
   </script>
+
+  <script src="nav.js"></script>
 
 </body>
 </html>
